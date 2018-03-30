@@ -1,0 +1,28 @@
+{
+  "name": "vue-axios-interceptors",
+  "version": "0.0.1",
+  "description": "Catch and handle ajax errors globally when using Axios with Vue",
+  "main": "intercept.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattias-persson/vue-axios-interceptors.git"
+  },
+  "keywords": [
+    "vue",
+    "axios",
+    "interceptors",
+    "laravel",
+    "validation errors",
+    "ajax errors",
+    "error handling"
+  ],
+  "author": "Mattias Persson <mattias@happypixels.se>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mattias-persson/vue-axios-interceptors/issues"
+  },
+  "homepage": "https://github.com/mattias-persson/vue-axios-interceptors#readme"
+}
