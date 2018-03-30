@@ -1,3 +1,7 @@
+[![Latest Version on NPM](https://img.shields.io/npm/v/vue-axios-interceptors.svg?style=flat-square)](https://npmjs.com/package/vue-axios-interceptors)
+[![Total Downloads on NPM](https://img.shields.io/npm/dt/vue-axios-interceptors.svg)](https://www.npmjs.com/package/vue-axios-interceptors)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+
 # vue-axios-interceptors
 Catch and handle ajax errors globally when using `Axios` with `Vue`.
 
@@ -5,7 +9,7 @@ Catch and handle ajax errors globally when using `Axios` with `Vue`.
 ```bash
 npm install vue-axios-interceptors --save
 // or
-yarn add url-parameters
+yarn add vue-axios-interceptors
 ```
 
 ```javascript
