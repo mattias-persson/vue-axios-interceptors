@@ -5,14 +5,22 @@ try {
 }
 
 window.axios.interceptors.response.use(function (response) {
+    handleResponse(response);
+    
     return response;
 }, function (error) {
+    handleResponse(error.response);
+        
+    return Promise.reject(error);
+});
+
+function handleResponse(response){
     var categories      = ['informational', 'success', 'redirection', 'client-error', 'server-error'];
-    var status          = error.response.status;
+    var status          = response.status;
     var codes           = statusCodes();
 
     if(!codes[status]){
-        return Promise.reject(error);
+        return false;
     }
 
     var statusCategory  = parseInt(status.toString().charAt(0));
@@ -22,7 +30,9 @@ window.axios.interceptors.response.use(function (response) {
 
     // Parse the validation errors.
     if(parseInt(status) === 422){
-        data.body = handleValidationErrors(error);
+        data.body = handleValidationErrors(response);
+    } else if(parseInt(status) === 200){
+        data.body = response.data;
     }
 
     window.intercepted.$emit('response', data);
@@ -30,12 +40,12 @@ window.axios.interceptors.response.use(function (response) {
     window.intercepted.$emit('response:' + sluggedCode, data);
     window.intercepted.$emit('response:' + status, data);
     window.intercepted.$emit('response:' + statusCategory + 'xx', data);
-    
-    return Promise.reject(error);
-});
 
-function handleValidationErrors(error){
-    if(!error.response.data){
+    return true;
+}
+
+function handleValidationErrors(response){
+    if(!response.data){
         return null;
     }
 
@@ -43,15 +53,15 @@ function handleValidationErrors(error){
     try {
         let messages = [];
       
-        for(var key in error.response.data.errors){
-            error.response.data.errors[key].map(function(message){
+        for(var key in response.data.errors){
+            response.data.errors[key].map(function(message){
                 messages.push(message);
             });
         }
 
         return messages;
-    } catch (error) {
-        return error.response.data;
+    } catch (e) {
+        return response.data;
     }
 }
 
