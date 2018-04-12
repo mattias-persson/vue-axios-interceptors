@@ -1,6 +1,6 @@
 {
   "name": "vue-axios-interceptors",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Catch and handle ajax errors globally when using Axios with Vue",
   "main": "intercept.js",
   "scripts": {
