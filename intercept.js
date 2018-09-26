@@ -26,13 +26,11 @@ function handleResponse(response){
     var statusCategory  = parseInt(status.toString().charAt(0));
     var category        = categories[statusCategory - 1];
     var sluggedCode     = slugify(codes[status]);
-    var data            = {status: status, code: codes[status], body: null};
+    var data            = {status: status, code: codes[status], body: response.data};
 
     // Parse the validation errors.
     if(parseInt(status) === 422){
         data.body = handleValidationErrors(response);
-    } else if(parseInt(status) === 200){
-        data.body = response.data;
     }
 
     window.intercepted.$emit('response', data);
