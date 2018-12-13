@@ -67,4 +67,4 @@ window.intercepted.$on('response:unprocessable-entity', data => {
 For a complete list of status codes, visit https://httpstatuses.com/.
 
 ### Using this package with Laravel
-If you're using Laravel >=5.5 as your backend, you're in luck. If your server returns a `422` response (typically a validation error), the package will automatically parse the returned failures into a flat array which you can access on `data.body`. This is way simpler to iterate through in order to display the messages than the original error message structure.
+If you're using Laravel >=5.5 as your backend, you're in luck. If your server returns a `422` response (typically a validation error), the package will automatically parse the returned failures into an iteratable key-value object which you can access on `data.body`. This is way simpler to use in order to display all messages or reference a single field error than with the original error message structure.

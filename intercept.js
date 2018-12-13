@@ -49,12 +49,10 @@ function handleValidationErrors(response){
 
     // Attempt to parse Laravel-structured validation errors.
     try {
-        let messages = [];
+        let messages = {};
       
         for(var key in response.data.errors){
-            response.data.errors[key].map(function(message){
-                messages.push(message);
-            });
+            messages[key] = response.data.errors[key].join(',');
         }
 
         return messages;
