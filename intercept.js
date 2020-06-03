@@ -15,18 +15,18 @@ window.axios.interceptors.response.use(function (response) {
 });
 
 function handleResponse(response){
-    var categories      = ['informational', 'success', 'redirection', 'client-error', 'server-error'];
-    var status          = response.status;
-    var codes           = statusCodes();
+    var categories = ['informational', 'success', 'redirection', 'client-error', 'server-error'];
+    var status = response ? response.status : null;
+    var codes = statusCodes();
 
-    if(!codes[status]){
+    if(!status || !codes[status]){
         return false;
     }
 
-    var statusCategory  = parseInt(status.toString().charAt(0));
-    var category        = categories[statusCategory - 1];
-    var sluggedCode     = slugify(codes[status]);
-    var data            = {status: status, code: codes[status], body: response.data};
+    var statusCategory = parseInt(status.toString().charAt(0));
+    var category = categories[statusCategory - 1];
+    var sluggedCode = slugify(codes[status]);
+    var data = {status: status, code: codes[status], body: response.data};
 
     // Parse the validation errors.
     if(parseInt(status) === 422){
@@ -49,10 +49,12 @@ function handleValidationErrors(response){
 
     // Attempt to parse Laravel-structured validation errors.
     try {
-        let messages = {};
+        let messages = [];
       
         for(var key in response.data.errors){
-            messages[key] = response.data.errors[key].join(',');
+            response.data.errors[key].map(function(message){
+                messages.push(message);
+            });
         }
 
         return messages;
@@ -114,7 +116,6 @@ function statusCodes(){
         '416': 'Requested Range Not Satisfiable',
         '417': 'Expectation Failed',
         '418': 'I\'m a teapot',
-        '419': 'Authentication Timeout',
         '421': 'Misdirected Request',
         '422': 'Unprocessable Entity',
         '423': 'Locked',
